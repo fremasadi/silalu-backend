@@ -28,7 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => '#38a6b1B',
+                'primary' => '#38a6b1',
             ])
             ->brandName('Admin SiLalu')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

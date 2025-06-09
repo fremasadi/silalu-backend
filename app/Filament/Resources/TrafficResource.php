@@ -19,11 +19,11 @@ class TrafficResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
-    protected static ?string $navigationLabel = 'Traffic Data';
+    protected static ?string $navigationLabel = 'Data Lalu Lintas';
 
-    protected static ?string $modelLabel = 'Traffic';
+    protected static ?string $modelLabel = 'Lalu Lintas';
 
-    protected static ?string $pluralModelLabel = 'Traffic Data';
+    protected static ?string $pluralModelLabel = 'Data Lalu Lintas';
 
     public static function form(Form $form): Form
     {

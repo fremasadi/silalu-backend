@@ -21,6 +21,18 @@ class TrafficReportResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Laporan Lalu Lintas';
+
+    public static function getModelLabel(): string
+    {
+        return 'Laporan Lalu Lintas';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Daftar Laporan Lalu Lintas';
+    }
+
     public static function form(Form $form): Form
     {
         return $form

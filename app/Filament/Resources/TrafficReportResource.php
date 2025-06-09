@@ -43,7 +43,7 @@ class TrafficReportResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('traffic.name')
-                    ->label('Lokasi')
+                    ->label('Nama Lokasi')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('masalah'),
                 Tables\Columns\TextColumn::make('status'),

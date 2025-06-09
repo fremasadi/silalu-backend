@@ -78,31 +78,31 @@ class TrafficResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Location Name')
+                    ->label('Nama Lokasi')
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('latitude')
-                    ->label('Latitude')
-                    ->sortable()
-                    ->formatStateUsing(fn ($state) => number_format($state, 6)),
+                // Tables\Columns\TextColumn::make('latitude')
+                //     ->label('Latitude')
+                //     ->sortable()
+                //     ->formatStateUsing(fn ($state) => number_format($state, 6)),
 
-                Tables\Columns\TextColumn::make('longitude')
-                    ->label('Longitude')
-                    ->sortable()
-                    ->formatStateUsing(fn ($state) => number_format($state, 6)),
+                // Tables\Columns\TextColumn::make('longitude')
+                //     ->label('Longitude')
+                //     ->sortable()
+                //     ->formatStateUsing(fn ($state) => number_format($state, 6)),
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Created')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    // ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Updated')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->label('Updated')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

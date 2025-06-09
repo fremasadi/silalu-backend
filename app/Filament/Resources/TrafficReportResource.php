@@ -55,33 +55,28 @@ class TrafficReportResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->label('Lihat Foto')
+                    ->form([
+                        \Filament\Forms\Components\Placeholder::make('Foto')
+                            ->label('Foto Laporan')
+                            ->content(fn ($record) =>
+                                $record->foto
+                                    ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->foto) . '" width="300" />')
+                                    : 'Tidak ada foto'
+                            )
+                            ->columnSpanFull()
+                    ]),
+                    
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),   // 👈 Tambah ini
-
             ])
+            
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
-
-    public static function view(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\Placeholder::make('Foto')
-                    ->label('Foto Laporan')
-                    ->content(fn ($record) =>
-                        $record->foto
-                            ? new HtmlString('<img src="' . asset('storage/' . $record->foto) . '" width="300" />')
-                            : 'Tidak ada foto'
-                    )
-                    ->columnSpanFull()
-            ])
-            ->columns(1);
-    }
-
 
     public static function getRelations(): array
     {

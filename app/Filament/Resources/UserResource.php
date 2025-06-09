@@ -37,25 +37,32 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                ->label('Nama')
+
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
+                // Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('role')
+                ->label('Peran')
+
                     ->required()
                     ->maxLength(255)
                     ->default('user'),
                 Forms\Components\TextInput::make('phone')
+                ->label('Nomer Telefon')
+
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('address')
+                ->label('Alamat')
                     ->columnSpanFull(),
             ]);
     }
@@ -78,6 +85,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->label('Nomer Telefon')
                     ->searchable(),
+                    Tables\Columns\TextColumn::make('address')
+                ->label('Alamat')
+                    ->columnSpanFull(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

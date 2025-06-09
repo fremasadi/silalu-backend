@@ -57,8 +57,16 @@ class TrafficReportResource extends Resource
                     ->maxSize(2048) // maksimal 2MB
                     ->required(),
     
-                Forms\Components\TextInput::make('status')
+                    Forms\Components\Select::make('status')
+                    ->label('Status')
+                    ->options([
+                        'pending' => 'Tertunda',
+                        'progress' => 'Diproses',
+                        'completed' => 'Selesai',
+                    ])
+                    ->default('pending')
                     ->required(),
+                
             ]);
     }
 

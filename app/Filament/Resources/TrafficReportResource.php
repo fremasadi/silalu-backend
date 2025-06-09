@@ -40,11 +40,12 @@ class TrafficReportResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('traffic_id')
-                    ->numeric()
+                TextColumn::make('traffic.name')
+                    ->label('Lokasi')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('foto')
-                    ->searchable(),
+
+                // Tables\Columns\TextColumn::make('foto')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -60,6 +61,8 @@ class TrafficReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),   // 👈 Tambah ini
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -67,6 +70,35 @@ class TrafficReportResource extends Resource
                 ]),
             ]);
     }
+
+    public static function view(Form $form): Form
+{
+    return $form
+        ->schema([
+            Forms\Components\TextInput::make('traffic.name')
+                ->label('Lokasi')
+                ->disabled(),
+
+            Forms\Components\Textarea::make('masalah')
+                ->disabled(),
+
+            Forms\Components\TextInput::make('status')
+                ->disabled(),
+
+            Forms\Components\Placeholder::make('Foto')
+                ->content(function ($record) {
+                    if ($record->foto) {
+                        return '<img src="' . asset('storage/' . $record->foto) . '" width="200"/>';
+                    }
+                    return 'Tidak ada foto';
+                })
+                ->columnSpanFull()
+                ->extraAttributes(['class' => 'mt-2'])
+                ->hiddenLabel(),
+        ])
+        ->columns(1);
+}
+
 
     public static function getRelations(): array
     {

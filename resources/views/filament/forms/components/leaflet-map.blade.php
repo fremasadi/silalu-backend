@@ -2,7 +2,7 @@
 
 <div class="space-y-2">
     <div class="text-sm font-medium text-gray-700 dark:text-gray-200">
-        Click on the map to select location
+        Klik pada peta untuk memilih lokasi
     </div>
     
     <div id="map" class="w-full h-96 rounded-lg border border-gray-300 dark:border-gray-600" wire:ignore></div>

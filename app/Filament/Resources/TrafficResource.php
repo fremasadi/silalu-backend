@@ -29,13 +29,13 @@ class TrafficResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Location Information')
+                Forms\Components\Section::make('Infomasi Lokasi')
                     ->schema([
                         Forms\Components\TextInput::make('name')
-                            ->label('Location Name')
+                            ->label('Nama Lokasi')
                             ->required()
                             ->maxLength(255)
-                            ->placeholder('Enter location name'),
+                            ->placeholder('Masukan Nama Lokasi'),
 
                         Forms\Components\Grid::make(2)
                             ->schema([
@@ -56,7 +56,7 @@ class TrafficResource extends Resource
                                     ->required()
                                     ->placeholder('112.0176')
                                     ->readOnly()
-                                    ->helperText('Click on map to auto-fill coordinates')
+                                    ->helperText('Klik pada peta untuk mengisi koordinat secara otomatis')
                                     ->id('longitude-input'),
                             ]),
 

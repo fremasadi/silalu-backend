@@ -56,18 +56,18 @@ class TrafficReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->label('Lihat Foto')
+                    ->label('') // Tombol tanpa label (ikon saja)
+                    ->modalHeading('') // Tanpa judul di modal
                     ->form([
                         \Filament\Forms\Components\Placeholder::make('Foto')
-                            ->label('Foto Laporan')
                             ->content(fn ($record) =>
                                 $record->foto
-                                    ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->foto) . '" width="300" />')
+                                    ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->foto) . '" style="width: 100%; border-radius: 8px;" />')
                                     : 'Tidak ada foto'
                             )
                             ->columnSpanFull()
+                            ->hiddenLabel(),
                     ]),
-                    
                 Tables\Actions\EditAction::make(),
             ])
             

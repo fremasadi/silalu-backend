@@ -45,18 +45,11 @@ class TrafficReportResource extends Resource
                 TextColumn::make('traffic.name')
                     ->label('Lokasi')
                     ->sortable(),
-
-                // Tables\Columns\TextColumn::make('foto')
-                //     ->searchable(),
+                Tables\Columns\TextColumn::make('masalah'),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -74,31 +67,20 @@ class TrafficReportResource extends Resource
     }
 
     public static function view(Form $form): Form
-{
-    return $form
-        ->schema([
-            Forms\Components\TextInput::make('traffic.name')
-                ->label('Lokasi')
-                ->disabled(),
-
-            Forms\Components\Textarea::make('masalah')
-                ->disabled(),
-
-            Forms\Components\TextInput::make('status')
-                ->disabled(),
-
+    {
+        return $form
+            ->schema([
                 Forms\Components\Placeholder::make('Foto')
-                ->content(function ($record) {
-                    if ($record->foto) {
-                        return new HtmlString('<img src="' . asset('storage/' . $record->foto) . '" width="200" />');
-                    }
-                    return 'Tidak ada foto';
-                })
-                ->columnSpanFull()
-                ->hiddenLabel(),
-        ])
-        ->columns(1);
-}
+                    ->label('Foto Laporan')
+                    ->content(fn ($record) =>
+                        $record->foto
+                            ? new HtmlString('<img src="' . asset('storage/' . $record->foto) . '" width="300" />')
+                            : 'Tidak ada foto'
+                    )
+                    ->columnSpanFull()
+            ])
+            ->columns(1);
+    }
 
 
     public static function getRelations(): array

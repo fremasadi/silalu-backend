@@ -78,8 +78,17 @@ class TrafficReportResource extends Resource
                     ->label('Nama Lokasi')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('masalah'),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('status')
+                ->label('Status')
+                ->formatStateUsing(function ($state) {
+                    return match ($state) {
+                        'pending' => 'Tertunda',
+                        'progress' => 'Diproses',
+                        'completed' => 'Selesai',
+                        default => $state,
+                    };
+                }),
+                            Tables\Columns\TextColumn::make('created_at')
                 ->label('Dibuat Pada')
 
                     ->dateTime()

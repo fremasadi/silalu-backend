@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\HtmlString;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\FileUpload;
 
 class TrafficReportResource extends Resource
 {
@@ -37,14 +39,24 @@ class TrafficReportResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('traffic_id')
-                    ->required()
-                    ->numeric(),
+                Select::make('traffic_id')
+                    ->label('Lokasi')
+                    ->relationship('traffic', 'name') // ambil nama dari relasi traffic
+                    ->required(),
+    
                 Forms\Components\Textarea::make('masalah')
+                    ->label('Masalah')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('foto')
-                    ->maxLength(255),
+    
+                FileUpload::make('foto')
+                    ->label('Foto')
+                    ->directory('traffic_reports') // folder di storage/app/public/
+                    ->image()
+                    ->imagePreviewHeight('200')
+                    ->maxSize(2048) // maksimal 2MB
+                    ->required(),
+    
                 Forms\Components\TextInput::make('status')
                     ->required(),
             ]);

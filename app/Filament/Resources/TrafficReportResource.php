@@ -62,7 +62,7 @@ class TrafficReportResource extends Resource
                         \Filament\Forms\Components\Placeholder::make('Foto')
                             ->content(fn ($record) =>
                                 $record->foto
-                                    ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->foto) . '" style="width: 80%; border-radius: 8px;" />')
+                                    ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->foto) . '" style="width: 100%; border-radius: 8px;" />')
                                     : 'Tidak ada foto'
                             )
                             ->columnSpanFull()

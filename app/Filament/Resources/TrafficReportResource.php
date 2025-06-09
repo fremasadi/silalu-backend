@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\HtmlString;
 
 class TrafficReportResource extends Resource
 {
@@ -86,15 +87,14 @@ class TrafficReportResource extends Resource
             Forms\Components\TextInput::make('status')
                 ->disabled(),
 
-            Forms\Components\Placeholder::make('Foto')
+                Forms\Components\Placeholder::make('Foto')
                 ->content(function ($record) {
                     if ($record->foto) {
-                        return '<img src="' . asset('storage/' . $record->foto) . '" width="200"/>';
+                        return new HtmlString('<img src="' . asset('storage/' . $record->foto) . '" width="200" />');
                     }
                     return 'Tidak ada foto';
                 })
                 ->columnSpanFull()
-                ->extraAttributes(['class' => 'mt-2'])
                 ->hiddenLabel(),
         ])
         ->columns(1);

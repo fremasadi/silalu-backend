@@ -93,7 +93,7 @@ class TrafficResource extends Resource
                 //     ->formatStateUsing(fn ($state) => number_format($state, 6)),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     // ->toggleable(isToggledHiddenByDefault: true),

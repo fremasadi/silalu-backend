@@ -65,24 +65,29 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('email_verified_at')
+                //     ->dateTime()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('role')
+                    ->label('Peran')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label('Nomer Telefon')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Dibuat Pada')
+
+                //     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\TextColumn::make('updated_at')
+                //     ->dateTime()
+                //     ->sortable()
+                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

@@ -60,6 +60,8 @@ class TrafficReportResource extends Resource
                 Tables\Columns\TextColumn::make('masalah'),
                 Tables\Columns\TextColumn::make('status'),
                 Tables\Columns\TextColumn::make('created_at')
+                ->label('Dibuat Pada')
+
                     ->dateTime()
                     ->sortable()
             ])

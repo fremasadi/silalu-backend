@@ -24,12 +24,13 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // Hanya izinkan login jika role-nya 'user'
-        if ($user->role !== 'user') {
+        // Hanya izinkan login jika role-nya 'user' atau 'petugas'
+        if (!in_array($user->role, ['user', 'petugas'])) {
             return response()->json([
                 'message' => 'Access denied.'
             ], 403);
         }
+
 
         $token = $user->createToken('api-token')->plainTextToken;
 

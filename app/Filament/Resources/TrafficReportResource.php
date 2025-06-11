@@ -77,8 +77,8 @@ class TrafficReportResource extends Resource
                     Select::make('status')
                     ->label('Status')
                     ->options([
-                        'pending' => 'Tertunda',
-                        'proses' => 'Diproses',
+                        // 'pending' => 'Tertunda',
+                        // 'proses' => 'Diproses',
                         'selesai' => 'Selesai',
                     ])
                     ->default('pending')
@@ -90,7 +90,7 @@ class TrafficReportResource extends Resource
                 Placeholder::make('status_display')
                     ->label('Status')
                     ->content(fn ($record) => match ($record?->status) {
-                        'pending' => 'Tertunda',
+                        // 'pending' => 'Tertunda',
                         // 'progress' => 'Diproses', 
                         'selesai' => 'Selesai',
                         default => '-',

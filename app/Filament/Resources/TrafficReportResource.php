@@ -78,12 +78,12 @@ class TrafficReportResource extends Resource
                     ->label('Status')
                     ->options([
                         'pending' => 'Tertunda',
-                        'progress' => 'Diproses',
+                        'proses' => 'Diproses',
                         'selesai' => 'Selesai',
                     ])
                     ->default('pending')
                     ->required()
-                    ->visible(fn ($record) => $record && $record->status === 'progress'),
+                    ->visible(fn ($record) => $record && $record->status === 'proses'),
                 
 
                 // Tampilkan teks biasa jika status completed

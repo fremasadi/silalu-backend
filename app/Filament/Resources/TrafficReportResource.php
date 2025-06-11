@@ -16,7 +16,9 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
-
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 class TrafficReportResource extends Resource
 {
     protected static ?string $model = TrafficReport::class;

@@ -83,7 +83,18 @@ class TrafficReportResource extends Resource
                     ])
                     ->default('pending')
                     ->required()
-                    ->disabled(fn ($record) => $record && $record->status === 'completed')
+                    ->visible(fn ($record) => !$record || $record->status !== 'completed'),
+            
+                // Tampilkan teks biasa jika status completed
+                Placeholder::make('status_info')
+                    ->label('Status')
+                    ->content(fn ($record) => match ($record->status ?? '') {
+                        'pending' => 'Tertunda',
+                        'progress' => 'Diproses',
+                        'completed' => 'Selesai',
+                        default => '-',
+                    })
+                    ->visible(fn ($record) => $record && $record->status === 'completed'),
                 
             ]);
     }

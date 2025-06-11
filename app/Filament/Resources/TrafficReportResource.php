@@ -74,32 +74,29 @@ class TrafficReportResource extends Resource
                     ->maxSize(2048)
                     ->visible(fn ($record) => $record === null), // Hanya saat create
     
-                    Select::make('status')
+                Select::make('status')
                     ->label('Status')
                     ->options([
                         'pending' => 'Tertunda',
                         'progress' => 'Diproses',
-                        'completed' => 'Selesai',
+                        'selesai' => 'Selesai',
                     ])
                     ->default('pending')
                     ->required()
-                    ->visible(function ($record) {
-                        // Tampil jika record baru (belum ada) atau status bukan completed
-                        return !$record || $record->status !== 'selesai';
-                    }),
-                
-                // Field read-only untuk status completed
-                TextInput::make('status_readonly')
+                    ->visible(fn ($record) => !$record || $record->status !== 'selesai'),
+
+                // Tampilkan teks biasa jika status completed
+                Placeholder::make('status_display')
                     ->label('Status')
-                    ->default(fn ($record) => match ($record?->status) {
+                    ->content(fn ($record) => match ($record?->status) {
                         'pending' => 'Tertunda',
+                        'progress' => 'Diproses', 
                         'selesai' => 'Selesai',
                         default => '-',
                     })
-                    ->disabled()
                     ->visible(fn ($record) => $record && $record->status === 'selesai'),
-                
-            ]);
+                                
+                            ]);
     }
     public static function table(Table $table): Table
     {

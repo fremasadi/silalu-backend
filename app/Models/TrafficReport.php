@@ -13,7 +13,9 @@ class TrafficReport extends Model
         'traffic_id',
         'masalah',
         'foto',
-        'status'
+        'status',
+        'confirmed_by',
+        'bukti_konfirmasi',
     ];
 
     public function traffic()

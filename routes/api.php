@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrafficController;
 use App\Http\Controllers\TrafficReportController;
+use App\Http\Controllers\TrafficConfirmationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/traffic-reports', [TrafficReportController::class, 'index']);
 
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/traffic-reports/{id}/confirm', [TrafficConfirmationController::class, 'confirm']);
 
 });

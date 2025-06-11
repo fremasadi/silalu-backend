@@ -20,4 +20,10 @@ class TrafficReport extends Model
     {
         return $this->belongsTo(Traffic::class);
     }
+
+    public function confirmedBy()
+{
+    return $this->belongsTo(User::class, 'confirmed_by');
+}
+
 }

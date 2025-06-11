@@ -78,7 +78,7 @@ class TrafficReportResource extends Resource
                     ->label('Status')
                     ->options([
                         'pending' => 'Tertunda',
-                        'progress' => 'Diproses',
+                        // 'progress' => 'Diproses',
                         'selesai' => 'Selesai',
                     ])
                     ->default('pending')
@@ -90,7 +90,7 @@ class TrafficReportResource extends Resource
                     ->label('Status')
                     ->content(fn ($record) => match ($record?->status) {
                         'pending' => 'Tertunda',
-                        'progress' => 'Diproses', 
+                        // 'progress' => 'Diproses', 
                         'selesai' => 'Selesai',
                         default => '-',
                     })

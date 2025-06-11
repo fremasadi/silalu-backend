@@ -74,16 +74,17 @@ class TrafficReportResource extends Resource
                     ->maxSize(2048)
                     ->visible(fn ($record) => $record === null), // Hanya saat create
     
-                Select::make('status')
+                    Select::make('status')
                     ->label('Status')
                     ->options([
                         'pending' => 'Tertunda',
-                        // 'progress' => 'Diproses',
+                        'progress' => 'Diproses',
                         'selesai' => 'Selesai',
                     ])
                     ->default('pending')
                     ->required()
-                    ->visible(fn ($record) => !$record || $record->status !== 'selesai'),
+                    ->visible(fn ($record) => $record && $record->status === 'progress'),
+                
 
                 // Tampilkan teks biasa jika status completed
                 Placeholder::make('status_display')
@@ -111,7 +112,7 @@ class TrafficReportResource extends Resource
                 ->formatStateUsing(function ($state) {
                     return match ($state) {
                         'pending' => 'Tertunda',
-                        // 'progress' => 'Diproses',
+                        'progress' => 'Diproses',
                         'selesai' => 'Selesai',
                         default => $state,
                     };

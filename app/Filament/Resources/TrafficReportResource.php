@@ -99,10 +99,10 @@ class TrafficReportResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->label('Lihat Foto Laporan') // Tombol tanpa label (ikon saja)
+                    ->label('Foto Laporan')
                     ->modalHeading('') // Tanpa judul di modal
                     ->form([
-                        \Filament\Forms\Components\Placeholder::make('Foto')
+                        \Filament\Forms\Components\Placeholder::make('Foto Laporan')
                             ->content(fn ($record) =>
                                 $record->foto
                                     ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->foto) . '" style="width: 100%; border-radius: 8px;" />')
@@ -110,9 +110,26 @@ class TrafficReportResource extends Resource
                             )
                             ->columnSpanFull()
                             ->hiddenLabel(),
+            
+                        \Filament\Forms\Components\Placeholder::make('Dikonfirmasi Oleh')
+                            ->content(fn ($record) =>
+                                $record->confirmed_by
+                                    ? optional($record->confirmedBy)->name ?? 'Tidak diketahui'
+                                    : 'Belum dikonfirmasi'
+                            ),
+            
+                        \Filament\Forms\Components\Placeholder::make('Bukti Konfirmasi')
+                            ->content(fn ($record) =>
+                                $record->bukti_konfirmasi
+                                    ? new \Illuminate\Support\HtmlString('<img src="' . asset('storage/' . $record->bukti_konfirmasi) . '" style="width: 100%; border-radius: 8px;" />')
+                                    : 'Tidak ada bukti konfirmasi'
+                            )
+                            ->columnSpanFull(),
                     ]),
+                
                 Tables\Actions\EditAction::make(),
             ])
+            
             
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -41,23 +41,38 @@ class TrafficReportResource extends Resource
             ->schema([
                 Select::make('traffic_id')
                     ->label('Lokasi')
-                    ->relationship('traffic', 'name') // ambil nama dari relasi traffic
+                    ->relationship('traffic', 'name')
                     ->required(),
     
-                Forms\Components\Textarea::make('masalah')
+                Textarea::make('masalah')
                     ->label('Masalah')
                     ->required()
                     ->columnSpanFull(),
     
+                // Jika sedang edit data dan ada file foto, tampilkan preview
+                Placeholder::make('preview_foto')
+                    ->label('Foto Sebelumnya')
+                    ->content(function ($record) {
+                        if ($record && $record->foto) {
+                            return new \Illuminate\Support\HtmlString(
+                                '<img src="' . asset('storage/' . $record->foto) . '" style="max-width: 100%; border-radius: 8px;" />'
+                            );
+                        }
+                        return 'Belum ada foto';
+                    })
+                    ->visible(fn ($record) => $record !== null)
+                    ->columnSpanFull(),
+    
+                // Hanya tampilkan input upload saat create, bukan edit
                 FileUpload::make('foto')
-                    ->label('Foto')
-                    ->directory('traffic_reports') // folder di storage/app/public/
+                    ->label('Upload Foto Baru')
+                    ->directory('traffic_reports')
                     ->image()
                     ->imagePreviewHeight('200')
-                    ->maxSize(2048) // maksimal 2MB
-                    ->required(),
+                    ->maxSize(2048)
+                    ->visible(fn ($record) => $record === null), // Hanya saat create
     
-                    Forms\Components\Select::make('status')
+                Select::make('status')
                     ->label('Status')
                     ->options([
                         'pending' => 'Tertunda',
@@ -66,10 +81,8 @@ class TrafficReportResource extends Resource
                     ])
                     ->default('pending')
                     ->required(),
-                
             ]);
     }
-
     public static function table(Table $table): Table
     {
         return $table

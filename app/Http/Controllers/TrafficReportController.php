@@ -11,12 +11,29 @@ class TrafficReportController extends Controller
 
     public function index()
 {
-    $reports = TrafficReport::with('traffic')->latest()->get();
+    $reports = TrafficReport::with(['traffic', 'confirmedUser'])->latest()->get();
+
+    // Map datanya agar confirmed_by menampilkan nama user
+    $reports = $reports->map(function ($report) {
+        return [
+            'id' => $report->id,
+            'traffic_id' => $report->traffic_id,
+            'masalah' => $report->masalah,
+            'foto' => $report->foto,
+            'status' => $report->status,
+            'created_at' => $report->created_at,
+            'updated_at' => $report->updated_at,
+            'confirmed_by' => $report->confirmedUser?->name,
+            'bukti_konfirmasi' => $report->bukti_konfirmasi,
+            'traffic' => $report->traffic,
+        ];
+    });
 
     return response()->json([
         'data' => $reports
     ]);
 }
+
     public function store(Request $request)
     {
         $request->validate([

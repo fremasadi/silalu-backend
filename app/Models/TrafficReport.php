@@ -28,4 +28,9 @@ class TrafficReport extends Model
     return $this->belongsTo(User::class, 'confirmed_by');
 }
 
+public function confirmedUser()
+{
+    return $this->belongsTo(User::class, 'confirmed_by');
+}
+
 }

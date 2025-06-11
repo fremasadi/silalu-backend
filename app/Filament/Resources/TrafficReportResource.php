@@ -74,7 +74,7 @@ class TrafficReportResource extends Resource
                     ->maxSize(2048)
                     ->visible(fn ($record) => $record === null), // Hanya saat create
     
-                Select::make('status')
+                    Select::make('status')
                     ->label('Status')
                     ->options([
                         'pending' => 'Tertunda',
@@ -82,7 +82,9 @@ class TrafficReportResource extends Resource
                         'completed' => 'Selesai',
                     ])
                     ->default('pending')
-                    ->required(),
+                    ->required()
+                    ->disabled(fn ($record) => $record && $record->status === 'completed')
+                
             ]);
     }
     public static function table(Table $table): Table

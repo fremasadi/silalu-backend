@@ -85,7 +85,7 @@ class TrafficReportResource extends Resource
                     ->required()
                     ->visible(function ($record) {
                         // Tampil jika record baru (belum ada) atau status bukan completed
-                        return !$record || $record->status !== 'completed';
+                        return !$record || $record->status !== 'selesai';
                     }),
                 
                 // Field read-only untuk status completed
@@ -93,12 +93,11 @@ class TrafficReportResource extends Resource
                     ->label('Status')
                     ->default(fn ($record) => match ($record?->status) {
                         'pending' => 'Tertunda',
-                        'progress' => 'Diproses',
-                        'completed' => 'Selesai',
+                        'selesai' => 'Selesai',
                         default => '-',
                     })
                     ->disabled()
-                    ->visible(fn ($record) => $record && $record->status === 'completed'),
+                    ->visible(fn ($record) => $record && $record->status === 'selesai'),
                 
             ]);
     }

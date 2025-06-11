@@ -111,8 +111,8 @@ class TrafficReportResource extends Resource
                 ->formatStateUsing(function ($state) {
                     return match ($state) {
                         'pending' => 'Tertunda',
-                        'progress' => 'Diproses',
-                        'completed' => 'Selesai',
+                        // 'progress' => 'Diproses',
+                        'selesai' => 'Selesai',
                         default => $state,
                     };
                 }),

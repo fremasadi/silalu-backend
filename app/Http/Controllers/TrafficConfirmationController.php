@@ -23,7 +23,7 @@ class TrafficConfirmationController extends Controller
     $trafficReport->update([
         'confirmed_by' => $request->user()->id,
         'bukti_konfirmasi' => $path,
-        'status' => 'selesai', // ✅ Ubah status menjadi 'completed'
+        'status' => 'progess', // ✅ Ubah status menjadi 'completed'
     ]);
 
     return response()->json([

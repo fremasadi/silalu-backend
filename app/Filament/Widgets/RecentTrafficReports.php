@@ -1,5 +1,6 @@
 <?php
 
+// app/Filament/Widgets/RecentTrafficReports.php
 namespace App\Filament\Widgets;
 
 use App\Models\TrafficReport;
@@ -10,8 +11,6 @@ use Filament\Widgets\TableWidget as BaseWidget;
 class RecentTrafficReports extends BaseWidget
 {
     protected static ?string $heading = 'Laporan Traffic Terbaru';
-    
-    protected static ?int $sort = 4;
     
     protected int | string | array $columnSpan = 'full';
 
@@ -33,19 +32,19 @@ class RecentTrafficReports extends BaseWidget
                 Tables\Columns\TextColumn::make('masalah')
                     ->label('Masalah')
                     ->limit(50)
-                    ->searchable(),
+                    ->wrap(),
                     
                 Tables\Columns\BadgeColumn::make('status')
                     ->label('Status')
                     ->colors([
-                        'danger' => 'pending',
+                        'warning' => 'pending',
                         'success' => 'confirmed',
-                        'secondary' => 'rejected',
+                        'danger' => 'rejected',
                     ]),
                     
                 Tables\Columns\TextColumn::make('confirmedBy.name')
                     ->label('Dikonfirmasi Oleh')
-                    ->default('-'),
+                    ->placeholder('Belum dikonfirmasi'),
                     
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Tanggal Laporan')

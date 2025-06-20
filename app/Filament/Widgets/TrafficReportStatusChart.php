@@ -1,5 +1,6 @@
 <?php
 
+// app/Filament/Widgets/TrafficReportStatusChart.php
 namespace App\Filament\Widgets;
 
 use App\Models\TrafficReport;
@@ -9,8 +10,6 @@ class TrafficReportStatusChart extends ChartWidget
 {
     protected static ?string $heading = 'Status Laporan Traffic';
     
-    protected static ?int $sort = 3;
-
     protected function getData(): array
     {
         $pending = TrafficReport::where('status', 'pending')->count();
@@ -22,13 +21,13 @@ class TrafficReportStatusChart extends ChartWidget
                 [
                     'data' => [$pending, $confirmed, $rejected],
                     'backgroundColor' => [
-                        'rgb(239, 68, 68)', // red for pending
-                        'rgb(34, 197, 94)', // green for confirmed
-                        'rgb(107, 114, 128)', // gray for rejected
+                        'rgb(245, 158, 11)',  // Yellow for pending
+                        'rgb(34, 197, 94)',   // Green for confirmed
+                        'rgb(239, 68, 68)',   // Red for rejected
                     ],
                 ],
             ],
-            'labels' => ['Pending', 'Dikonfirmasi', 'Ditolak'],
+            'labels' => ['Pending', 'Confirmed', 'Rejected'],
         ];
     }
 

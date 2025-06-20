@@ -21,7 +21,7 @@ class Dashboard extends BaseDashboard
             \App\Filament\Widgets\TrafficStatsOverview::class,
             \App\Filament\Widgets\DailyReportsOverview::class,
             \App\Filament\Widgets\TrafficReportChart::class,
-            \App\Filament\Widgets\TrafficReportStatusChart::class,
+            // \App\Filament\Widgets\TrafficReportStatusChart::class,
             \App\Filament\Widgets\RecentTrafficReports::class,
             // \App\Filament\Widgets\TopTrafficLocations::class,
         ];

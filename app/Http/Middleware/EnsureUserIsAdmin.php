@@ -17,7 +17,7 @@ class EnsureUserIsAdmin
             Auth::logout();
 
             return redirect()
-                ->route('filament.admin.auth.login') // Pastikan ini sesuai dengan route login Filament kamu
+                // ->route('filament.admin.auth.login') // Pastikan ini sesuai dengan route login Filament kamu
                 ->withErrors([
                     'email' => 'Akses ditolak. Anda bukan admin.',
                 ]);

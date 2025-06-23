@@ -27,7 +27,6 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->authGuard('admin') // Gunakan guard khusus admin
             ->colors([
                 'primary' => '#38a6b1',
             ])
@@ -55,6 +54,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                \App\Http\Middleware\EnsureUserIsAdmin::class, // Tambahkan ini
+
             ]);
     }
 }

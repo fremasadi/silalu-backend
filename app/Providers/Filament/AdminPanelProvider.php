@@ -30,8 +30,6 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => '#38a6b1',
             ])
-            ->authorizeGate('viewFilamentAdminPanel') // <- Tambahkan ini
-
             ->brandName('Admin SiLalu')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -56,13 +54,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+                \App\Http\Middleware\EnsureUserIsAdmin::class, // Tambahkan ini
+
             ]);
-            
-    }
-    public function boot()
-    {
-        Gate::define('viewFilamentAdminPanel', function ($user) {
-            return $user->role === 'admin';
-        });
     }
 }

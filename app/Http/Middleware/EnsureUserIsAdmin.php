@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EnsureUserIsAdmin
@@ -13,7 +14,13 @@ class EnsureUserIsAdmin
         $user = $request->user();
 
         if (!$user || $user->role !== 'admin') {
-            abort(403, 'Akses ditolak. Hanya admin yang diperbolehkan.');
+            Auth::logout();
+
+            return redirect()
+                ->route('filament.admin.auth.login') // Pastikan ini sesuai dengan route login Filament kamu
+                ->withErrors([
+                    'email' => 'Akses ditolak. Anda bukan admin.',
+                ]);
         }
 
         return $next($request);

@@ -117,10 +117,12 @@ class TrafficReportResource extends Resource
                         default => $state,
                     };
                 }),
-                Tables\Columns\TextColumn::make('createdBy.name') // ← tambahkan ini
+            Tables\Columns\TextColumn::make('createdBy.name') // ← tambahkan ini
                 ->label('Dibuat Oleh')
                 ->sortable(),
-            
+            Tables\Columns\TextColumn::make('confirmedBy.name') // ← tambahkan ini
+                ->label('Ditangani Oleh')
+                ->sortable(),
             Tables\Columns\TextColumn::make('created_at')
                 ->label('Dibuat Pada')
                 ->dateTime()

@@ -45,6 +45,16 @@ class TrafficResource extends Resource
                             ->preload()
                             ->required()
                             ->placeholder('Pilih Kecamatan'),
+                        Select::make('jenis_apill')
+                            ->label('Jenis APILL')
+                            ->options([
+                                '3 lampu' => '3 lampu',
+                                '2 lampu' => '2 lampu',
+                                '1 lampu' => '1 lampu',
+                            ])
+                            ->required()
+                            ->native(false)
+                            ->placeholder('Pilih jenis APILL'),
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('latitude')
@@ -90,10 +100,13 @@ class TrafficResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('kecamatan.name')
-                    ->label('Nama Lokasi')
+                    ->label('Nama Kecamatan')
                     ->searchable()
                     ->sortable(),
-
+                Tables\Columns\TextColumn::make('jenis_apill')
+                    ->label('Jenis APILL')
+                    ->searchable()
+                    ->sortable(),
                 // Tables\Columns\TextColumn::make('latitude')
                 //     ->label('Latitude')
                 //     ->sortable()

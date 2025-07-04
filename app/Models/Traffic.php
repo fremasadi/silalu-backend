@@ -22,6 +22,7 @@ class Traffic extends Model
         'longitude',
         'latitude',
         'kecamatan_id',
+        'jenis_apill',
 
     ];
 

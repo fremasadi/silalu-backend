@@ -16,6 +16,9 @@ class TrafficReport extends Model
         'status',
         'confirmed_by',
         'bukti_konfirmasi',
+        'created_by', // tambahkan ini
+
+        
     ];
 
     public function traffic()
@@ -32,5 +35,10 @@ public function confirmedUser()
 {
     return $this->belongsTo(User::class, 'confirmed_by');
 }
+public function createdBy()
+{
+    return $this->belongsTo(User::class, 'created_by');
+}
+
 
 }

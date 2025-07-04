@@ -11,9 +11,19 @@ class TrafficReportController extends Controller
 
     public function index()
 {
-    $reports = TrafficReport::with(['traffic', 'confirmedUser'])->latest()->get();
+    $user = auth()->user();
 
-    // Map datanya agar confirmed_by menampilkan nama user
+    // Ambil query awal
+    $query = TrafficReport::with(['traffic', 'confirmedUser', 'createdBy'])->latest();
+
+    // Filter berdasarkan role
+    if ($user->role === 'user') {
+        $query->where('created_by', $user->id);
+    }
+
+    $reports = $query->get();
+
+    // Format response
     $reports = $reports->map(function ($report) {
         return [
             'id' => $report->id,
@@ -26,6 +36,7 @@ class TrafficReportController extends Controller
             'confirmed_by' => $report->confirmedUser?->name,
             'bukti_konfirmasi' => $report->bukti_konfirmasi,
             'traffic' => $report->traffic,
+            'created_by' => $report->createdBy?->name, // tampilkan nama pembuat
         ];
     });
 
@@ -34,31 +45,34 @@ class TrafficReportController extends Controller
     ]);
 }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'traffic_id' => 'required|exists:traffic,id',
-            'masalah'    => 'required|string',
-            'foto'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'status'     => 'nullable|in:pending,proses,selesai'
-        ]);
 
-        $fotoPath = null;
+public function store(Request $request)
+{
+    $request->validate([
+        'traffic_id' => 'required|exists:traffic,id',
+        'masalah'    => 'required|string',
+        'foto'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'status'     => 'nullable|in:pending,proses,selesai'
+    ]);
 
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('traffic_reports', 'public');
-        }
+    $fotoPath = null;
 
-        $report = TrafficReport::create([
-            'traffic_id' => $request->traffic_id,
-            'masalah'    => $request->masalah,
-            'foto'       => $fotoPath,
-            'status'     => $request->status ?? 'pending',
-        ]);
-
-        return response()->json([
-            'message' => 'Laporan berhasil dikirim.',
-            'data'    => $report
-        ], 201);
+    if ($request->hasFile('foto')) {
+        $fotoPath = $request->file('foto')->store('traffic_reports', 'public');
     }
+
+    $report = TrafficReport::create([
+        'traffic_id' => $request->traffic_id,
+        'masalah'    => $request->masalah,
+        'foto'       => $fotoPath,
+        'status'     => $request->status ?? 'pending',
+        'created_by' => auth()->id(), // Tambahkan ini
+    ]);
+
+    return response()->json([
+        'message' => 'Laporan berhasil dikirim.',
+        'data'    => $report
+    ], 201);
+}
+
 }

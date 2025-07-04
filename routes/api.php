@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrafficController;
 use App\Http\Controllers\TrafficReportController;
 use App\Http\Controllers\TrafficConfirmationController;
+use App\Http\Controllers\KecamatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ use App\Http\Controllers\TrafficConfirmationController;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/traffic', [TrafficController::class, 'index']);
+
+Route::get('/kecamatan', [KecamatanController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->group(function () {

@@ -12,6 +12,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
+use App\Models\Kecamatan;
 
 class TrafficResource extends Resource
 {
@@ -36,7 +38,13 @@ class TrafficResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->placeholder('Masukan Nama Lokasi'),
-
+                        Select::make('kecamatan_id')
+                            ->label('Kecamatan')
+                            ->relationship('kecamatan', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->placeholder('Pilih Kecamatan'),
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('latitude')

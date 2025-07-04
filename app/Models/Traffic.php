@@ -21,6 +21,8 @@ class Traffic extends Model
         'name',
         'longitude',
         'latitude',
+        'kecamatan_id',
+
     ];
 
     /**
@@ -35,5 +37,10 @@ class Traffic extends Model
 {
     return $this->hasMany(TrafficReport::class);
 }
+public function kecamatan()
+{
+    return $this->belongsTo(Kecamatan::class);
+}
+
 
 }

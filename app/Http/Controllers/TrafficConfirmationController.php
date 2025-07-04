@@ -31,5 +31,33 @@ class TrafficConfirmationController extends Controller
         'data' => $trafficReport,
     ]);
 }
+public function markAsCompleted($id)
+{
+    $trafficReport = TrafficReport::findOrFail($id);
+
+    // Pastikan hanya petugas yang bisa menyelesaikan laporan
+    if (auth()->user()->role !== 'petugas') {
+        return response()->json([
+            'message' => 'Anda tidak memiliki izin untuk menyelesaikan laporan ini.'
+        ], 403);
+    }
+
+    // Pastikan status sebelumnya adalah 'proses' agar tidak bisa skip konfirmasi
+    if ($trafficReport->status !== 'proses') {
+        return response()->json([
+            'message' => 'Laporan hanya dapat diselesaikan setelah dikonfirmasi terlebih dahulu.'
+        ], 400);
+    }
+
+    $trafficReport->update([
+        'status' => 'selesai',
+    ]);
+
+    return response()->json([
+        'message' => 'Laporan berhasil ditandai sebagai selesai.',
+        'data' => $trafficReport,
+    ]);
+}
+
 
 }

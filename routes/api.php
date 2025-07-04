@@ -27,6 +27,7 @@ Route::get('/kecamatan', [KecamatanController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/traffic-reports', [TrafficReportController::class, 'store']);
+    Route::put('/traffic-reports/{id}/complete', [TrafficConfirmationController::class, 'markAsCompleted']);
 
     Route::get('/traffic-reports', [TrafficReportController::class, 'index']);
 

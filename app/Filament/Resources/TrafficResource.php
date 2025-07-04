@@ -89,6 +89,10 @@ class TrafficResource extends Resource
                     ->label('Nama Lokasi')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('kecamatan.name')
+                    ->label('Nama Lokasi')
+                    ->searchable()
+                    ->sortable(),
 
                 // Tables\Columns\TextColumn::make('latitude')
                 //     ->label('Latitude')

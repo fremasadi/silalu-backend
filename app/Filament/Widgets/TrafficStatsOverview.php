@@ -5,35 +5,39 @@ namespace App\Filament\Widgets;
 use Filament\Widgets\ChartWidget;
 use App\Models\TrafficReport;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class TrafficStatsOverview extends ChartWidget
 {
-    protected static ?string $heading = 'Laporan Kerusakan APILL Per Hari';
-    
+    protected static ?string $heading = 'Jumlah Kerusakan APILL per Jenis (7 Hari Terakhir)';
+
+    protected int | string | array $columnSpan = 12;
 
     protected function getData(): array
     {
-        $data = TrafficReport::selectRaw('DATE(created_at) as date, COUNT(*) as total')
-            ->where('status', 'rusak')
-            ->groupBy('date')
-            ->orderBy('date')
+        $sevenDaysAgo = Carbon::now()->subDays(7)->startOfDay();
+
+        $data = TrafficReport::select('traffic.jenis_apill', DB::raw('COUNT(*) as total'))
+            ->join('traffic', 'traffic_reports.traffic_id', '=', 'traffic.id')
+            ->where('traffic_reports.created_at', '>=', $sevenDaysAgo)
+            ->groupBy('traffic.jenis_apill')
+            ->orderBy('traffic.jenis_apill')
             ->get();
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Kerusakan APILL',
+                    'label' => 'Jumlah Kerusakan',
                     'data' => $data->pluck('total'),
-                    'backgroundColor' => '#f87171',
-                    'borderColor' => '#dc2626',
+                    'backgroundColor' => ['#fbbf24', '#60a5fa', '#34d399'], // warna bisa disesuaikan
                 ],
             ],
-            'labels' => $data->pluck('date')->toArray(),
+            'labels' => $data->pluck('jenis_apill'),
         ];
     }
 
     protected function getType(): string
     {
-        return 'bar'; // Bisa 'line', 'bar', 'pie', dll
+        return 'bar'; // atau 'pie', 'doughnut' untuk visual perbandingan
     }
 }

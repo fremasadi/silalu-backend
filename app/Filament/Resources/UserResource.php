@@ -65,6 +65,13 @@ class UserResource extends Resource
 
                     ->tel()
                     ->maxLength(255),
+                    Forms\Components\Select::make('kecamatan_id')
+                    ->label('Kecamatan')
+                    ->relationship('kecamatan', 'name') // asumsi relasi 'kecamatan()' sudah ada di model User
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                
                 Forms\Components\Textarea::make('address')
                 ->label('Alamat')
                     ->columnSpanFull(),

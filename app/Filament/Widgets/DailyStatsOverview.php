@@ -6,7 +6,7 @@ use Filament\Widgets\ChartWidget;
 use App\Models\TrafficReport;
 use Illuminate\Support\Facades\DB;
 
-class ApillReportChart extends ChartWidget
+class DailyStatsOverview extends ChartWidget
 {
     protected static ?string $heading = 'Laporan Kerusakan APILL Per Hari';
 

@@ -11,7 +11,11 @@ class TrafficStatsOverview extends ChartWidget
 {
     protected static ?string $heading = 'Jumlah Kerusakan APILL per Jenis (7 Hari Terakhir)';
 
-
+// Bikin lebar penuh
+public function getColumnSpan(): int|string|array
+{
+    return 'full'; // atau 2, 3, 4 tergantung layout grid kamu
+}
     protected function getData(): array
     {
         $sevenDaysAgo = Carbon::now()->subDays(7)->startOfDay();

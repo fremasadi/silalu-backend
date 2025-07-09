@@ -93,6 +93,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('role')
                     ->label('Peran')
                     ->searchable(),
+                    Tables\Columns\TextColumn::make('kecamatan.name')
+                    ->label('Peran')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->label('Nomer Telefon')
                     ->searchable(),

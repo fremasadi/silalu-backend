@@ -51,4 +51,9 @@ class User extends Authenticatable
     return $this->hasMany(TrafficReport::class, 'created_by');
 }
 
+public function kecamatan()
+{
+    return $this->belongsTo(Kecamatan::class);
+}
+
 }

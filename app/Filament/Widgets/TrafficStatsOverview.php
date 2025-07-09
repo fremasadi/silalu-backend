@@ -2,11 +2,15 @@
 
 namespace App\Filament\Widgets;
 
+use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\ChartWidget;
-use App\Models\TrafficReport;
-use Illuminate\Support\Facades\DB;
 
 class TrafficStatsOverview extends ChartWidget
 {
-    
+    protected function getStats(): array
+    {
+        return [
+            //
+        ];
+    }
 }

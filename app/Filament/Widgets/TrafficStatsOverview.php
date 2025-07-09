@@ -10,6 +10,8 @@ class TrafficStatsOverview extends ChartWidget
 {
     protected static ?string $heading = 'Laporan Kerusakan APILL Per Hari';
 
+    protected static ?int $columnSpan = 12;
+
     protected function getData(): array
     {
         $data = TrafficReport::selectRaw('DATE(created_at) as date, COUNT(*) as total')

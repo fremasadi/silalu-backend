@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\DB;
 class TrafficStatsOverview extends ChartWidget
 {
     protected static ?string $heading = 'Laporan Kerusakan APILL Per Hari';
-
-    protected int | string | array $columnSpan = 12;
+    
 
     protected function getData(): array
     {

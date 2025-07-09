@@ -69,9 +69,7 @@ class UserResource extends Resource
                     ->label('Kecamatan')
                     ->relationship('kecamatan', 'name') // asumsi relasi 'kecamatan()' sudah ada di model User
                     ->searchable()
-                    ->preload()
-                    ->required(),
-                
+                    ->preload(),                
                 Forms\Components\Textarea::make('address')
                 ->label('Alamat')
                     ->columnSpanFull(),

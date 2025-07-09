@@ -32,49 +32,56 @@ class UserResource extends Resource
     }
 
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+    use Filament\Forms\Get;
+
+public static function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Forms\Components\TextInput::make('name')
                 ->label('Nama')
+                ->required()
+                ->maxLength(255),
 
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                // Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\Select::make('role')
-                    ->label('Peran')
-                    ->options([
-                        'user' => 'User',
-                        'admin' => 'Admin',
-                        'petugas' => 'Petugas'
-                    ])
-                    ->default('user')
-                    ->required(),
-                
-                Forms\Components\TextInput::make('phone')
+            Forms\Components\TextInput::make('email')
+                ->email()
+                ->required()
+                ->maxLength(255),
+
+            Forms\Components\TextInput::make('password')
+                ->password()
+                ->required()
+                ->maxLength(255),
+
+            Forms\Components\Select::make('role')
+                ->label('Peran')
+                ->options([
+                    'user' => 'User',
+                    'admin' => 'Admin',
+                    'petugas' => 'Petugas'
+                ])
+                ->default('user')
+                ->required()
+                ->live(), // penting agar trigger perubahan saat create
+
+            Forms\Components\TextInput::make('phone')
                 ->label('Nomer Telefon')
+                ->tel()
+                ->maxLength(255),
 
-                    ->tel()
-                    ->maxLength(255),
-                    Forms\Components\Select::make('kecamatan_id')
-                    ->label('Kecamatan')
-                    ->relationship('kecamatan', 'name') // asumsi relasi 'kecamatan()' sudah ada di model User
-                    ->searchable()
-                    ->preload(),                
-                Forms\Components\Textarea::make('address')
+            Forms\Components\Select::make('kecamatan_id')
+                ->label('Kecamatan')
+                ->relationship('kecamatan', 'name')
+                ->searchable()
+                ->preload()
+                ->hidden(fn (Get $get) => $get('role') !== 'petugas'),
+
+            Forms\Components\Textarea::make('address')
                 ->label('Alamat')
-                    ->columnSpanFull(),
-            ]);
-    }
+                ->columnSpanFull(),
+        ]);
+}
+
 
     public static function table(Table $table): Table
     {

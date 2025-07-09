@@ -12,7 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Get;
 
 class UserResource extends Resource
 {
@@ -33,56 +32,51 @@ class UserResource extends Resource
     }
 
 
-    use Filament\Forms\Get;
-
-public static function form(Form $form): Form
-{
-    return $form
-        ->schema([
-            Forms\Components\TextInput::make('name')
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\TextInput::make('name')
                 ->label('Nama')
-                ->required()
-                ->maxLength(255),
 
-            Forms\Components\TextInput::make('email')
-                ->email()
-                ->required()
-                ->maxLength(255),
-
-            Forms\Components\TextInput::make('password')
-                ->password()
-                ->required()
-                ->maxLength(255),
-
-            Forms\Components\Select::make('role')
-                ->label('Peran')
-                ->options([
-                    'user' => 'User',
-                    'admin' => 'Admin',
-                    'petugas' => 'Petugas'
-                ])
-                ->default('user')
-                ->required()
-                ->live(), // penting agar trigger perubahan saat create
-
-            Forms\Components\TextInput::make('phone')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                // Forms\Components\DateTimePicker::make('email_verified_at'),
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->maxLength(255),
+                    Forms\Components\Select::make('role')
+                    ->label('Peran')
+                    ->options([
+                        'user' => 'User',
+                        'admin' => 'Admin',
+                        'petugas' => 'Petugas'
+                    ])
+                    ->default('user')
+                    ->required(),
+                
+                Forms\Components\TextInput::make('phone')
                 ->label('Nomer Telefon')
-                ->tel()
-                ->maxLength(255),
 
-            Forms\Components\Select::make('kecamatan_id')
-                ->label('Kecamatan')
-                ->relationship('kecamatan', 'name')
-                ->searchable()
-                ->preload()
-                ->hidden(fn (Get $get) => $get('role') !== 'petugas'),
-
-            Forms\Components\Textarea::make('address')
+                    ->tel()
+                    ->maxLength(255),
+                    Forms\Components\Select::make('kecamatan_id')
+    ->label('Kecamatan')
+    ->relationship('kecamatan', 'name')
+    ->searchable()
+    ->preload()
+    ->hidden(fn ($get) => $get('role') !== 'petugas'),
+            
+                Forms\Components\Textarea::make('address')
                 ->label('Alamat')
-                ->columnSpanFull(),
-        ]);
-}
-
+                    ->columnSpanFull(),
+            ]);
+    }
 
     public static function table(Table $table): Table
     {

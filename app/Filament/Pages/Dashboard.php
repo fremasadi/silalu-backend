@@ -20,7 +20,7 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
-            \App\Filament\Widgets\TrafficStatsOverview::class,
+            // \App\Filament\Widgets\TrafficStatsOverview::class,
             \App\Filament\Widgets\DailyReportsOverview::class,
             \App\Filament\Widgets\TrafficReportChart::class,
             // \App\Filament\Widgets\TrafficReportStatusChart::class,

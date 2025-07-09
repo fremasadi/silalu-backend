@@ -94,7 +94,7 @@ class UserResource extends Resource
                     ->label('Peran')
                     ->searchable(),
                     Tables\Columns\TextColumn::make('kecamatan.name')
-                    ->label('Peran')
+                    ->label('Wilayah Kecamatan')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->label('Nomer Telefon')

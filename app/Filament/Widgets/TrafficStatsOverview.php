@@ -11,7 +11,6 @@ class TrafficStatsOverview extends ChartWidget
 {
     protected static ?string $heading = 'Jumlah Kerusakan APILL per Jenis (7 Hari Terakhir)';
 
-    protected int | string | array $columnSpan = 12;
 
     protected function getData(): array
     {

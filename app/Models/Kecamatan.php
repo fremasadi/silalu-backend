@@ -10,4 +10,10 @@ class Kecamatan extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'kodepos'];
+
+    public function kelurahans()
+{
+    return $this->hasMany(Kelurahan::class);
+}
+
 }

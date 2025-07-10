@@ -38,13 +38,27 @@ class TrafficResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->placeholder('Masukan Nama Lokasi'),
-                        Select::make('kecamatan_id')
+                            Select::make('kecamatan_id')
                             ->label('Kecamatan')
                             ->relationship('kecamatan', 'name')
-                            ->searchable()
-                            ->preload()
                             ->required()
-                            ->placeholder('Pilih Kecamatan'),
+                            ->reactive(), // Penting untuk trigger perubahan
+                        
+                        Select::make('kelurahan_id')
+                            ->label('Kelurahan')
+                            ->required()
+                            ->options(function (callable $get) {
+                                $kecamatanId = $get('kecamatan_id');
+                        
+                                if (!$kecamatanId) {
+                                    return [];
+                                }
+                        
+                                return \App\Models\Kelurahan::where('kecamatan_id', $kecamatanId)
+                                    ->pluck('nama', 'id')
+                                    ->toArray();
+                            })
+                            ->searchable(),
                         Select::make('jenis_apill')
                             ->label('Jenis APILL')
                             ->options([
@@ -103,6 +117,10 @@ class TrafficResource extends Resource
                     ->label('Nama Kecamatan')
                     ->searchable()
                     ->sortable(),
+                    Tables\Columns\TextColumn::make('kelurahan.nama')
+                    ->label('Nama Kelurahan')
+                    ->searchable()
+                    ->sortable(),    
                 Tables\Columns\TextColumn::make('jenis_apill')
                     ->label('Jenis APILL')
                     ->searchable()

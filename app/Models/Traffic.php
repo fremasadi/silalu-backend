@@ -42,6 +42,10 @@ public function kecamatan()
 {
     return $this->belongsTo(Kecamatan::class);
 }
+public function kelurahan()
+{
+    return $this->belongsTo(Kelurahan::class);
+}
 
 
 }

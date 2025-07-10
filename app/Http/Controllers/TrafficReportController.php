@@ -35,6 +35,7 @@ class TrafficReportController extends Controller
                 'id' => $report->id,
                 'traffic_id' => $report->traffic_id,
                 'masalah' => $report->masalah,
+                'deskripsi' => $report->deskripsi, // ✅ Tambah ini
                 'foto' => $report->foto,
                 'status' => $report->status,
                 'created_at' => $report->created_at,
@@ -45,6 +46,7 @@ class TrafficReportController extends Controller
                 'created_by' => $report->createdBy?->name,
             ];
         });
+        
     
         return response()->json([
             'data' => $reports
@@ -53,33 +55,36 @@ class TrafficReportController extends Controller
     
 
 
-public function store(Request $request)
-{
-    $request->validate([
-        'traffic_id' => 'required|exists:traffic,id',
-        'masalah'    => 'required|string',
-        'foto'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        'status'     => 'nullable|in:pending,proses,selesai'
-    ]);
-
-    $fotoPath = null;
-
-    if ($request->hasFile('foto')) {
-        $fotoPath = $request->file('foto')->store('traffic_reports', 'public');
+    public function store(Request $request)
+    {
+        $request->validate([
+            'traffic_id' => 'required|exists:traffic,id',
+            'masalah'    => 'required|string',
+            'deskripsi'  => 'nullable|string', // ✅ Tambah validasi
+            'foto'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status'     => 'nullable|in:pending,proses,selesai'
+        ]);
+    
+        $fotoPath = null;
+    
+        if ($request->hasFile('foto')) {
+            $fotoPath = $request->file('foto')->store('traffic_reports', 'public');
+        }
+    
+        $report = TrafficReport::create([
+            'traffic_id' => $request->traffic_id,
+            'masalah'    => $request->masalah,
+            'deskripsi'  => $request->deskripsi, // ✅ Tambah ini
+            'foto'       => $fotoPath,
+            'status'     => $request->status ?? 'pending',
+            'created_by' => auth()->id(),
+        ]);
+    
+        return response()->json([
+            'message' => 'Laporan berhasil dikirim.',
+            'data'    => $report
+        ], 201);
     }
-
-    $report = TrafficReport::create([
-        'traffic_id' => $request->traffic_id,
-        'masalah'    => $request->masalah,
-        'foto'       => $fotoPath,
-        'status'     => $request->status ?? 'pending',
-        'created_by' => auth()->id(), // Tambahkan ini
-    ]);
-
-    return response()->json([
-        'message' => 'Laporan berhasil dikirim.',
-        'data'    => $report
-    ], 201);
-}
+    
 
 }

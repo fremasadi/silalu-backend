@@ -17,6 +17,7 @@ class TrafficReport extends Model
         'confirmed_by',
         'bukti_konfirmasi',
         'created_by', // tambahkan ini
+        'deskripsi', // tambahkan ini
 
         
     ];

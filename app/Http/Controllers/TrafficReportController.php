@@ -75,4 +75,27 @@ public function store(Request $request)
     ], 201);
 }
 
+public function apillDamageStats()
+    {
+        $stats = [
+            '3_lampu' => $this->countDamagedApill('3 lampu'),
+            '2_lampu' => $this->countDamagedApill('2 lampu'),
+            '1_lampu' => $this->countDamagedApill('1 lampu'),
+        ];
+
+        return response()->json([
+            'message' => 'Statistik kerusakan APILL',
+            'data' => $stats,
+        ]);
+    }
+
+    protected function countDamagedApill(string $jenis): int
+    {
+        return TrafficReport::whereIn('status', ['pending', 'proses'])
+            ->whereHas('traffic', function ($query) use ($jenis) {
+                $query->where('jenis_apill', $jenis);
+            })
+            ->count();
+    }
+
 }

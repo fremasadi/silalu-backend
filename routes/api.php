@@ -21,6 +21,7 @@ use App\Http\Controllers\KecamatanController;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/traffic', [TrafficController::class, 'index']);
+Route::get('/apill-damage-stats', [TrafficReportController::class, 'apillDamageStats']);
 
 Route::get('/kecamatan', [KecamatanController::class, 'index']);
 

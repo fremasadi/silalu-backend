@@ -20,12 +20,11 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
+            \App\Filament\Widgets\ApillDamageStats::class, // 👈 Tambahkan ini di paling atas
             \App\Filament\Widgets\TrafficStatsOverview::class,
             \App\Filament\Widgets\DailyReportsOverview::class,
             \App\Filament\Widgets\TrafficReportChart::class,
-            // \App\Filament\Widgets\TrafficReportStatusChart::class,
             \App\Filament\Widgets\RecentTrafficReports::class,
-            // \App\Filament\Widgets\TopTrafficLocations::class,
         ];
     }
     

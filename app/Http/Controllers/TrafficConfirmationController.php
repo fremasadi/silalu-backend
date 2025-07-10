@@ -13,6 +13,8 @@ class TrafficConfirmationController extends Controller
 {
     $request->validate([
         'bukti_konfirmasi' => 'required|image|max:2048',
+        'deskripsi' => 'nullable|string', // ✅ Tambahkan ini
+
     ]);
 
     $trafficReport = TrafficReport::findOrFail($id);
@@ -23,12 +25,12 @@ class TrafficConfirmationController extends Controller
     $trafficReport->update([
         'confirmed_by' => $request->user()->id,
         'bukti_konfirmasi' => $path,
+        'deskripsi' => $request->deskripsi, // ✅ Tambahkan ini
         'status' => 'proses', // ✅ Ubah status menjadi 'completed'
-        'deskripsi' => 'deskripsi'
     ]);
 
     return response()->json([
-        'message' => 'Laporan berhasil dikonfirmasi dan ditandai sebagai proses.',
+        'message' => 'Laporan berhasil dikonfirmasi dan ditandai sebagai selesai.',
         'data' => $trafficReport,
     ]);
 }

@@ -24,10 +24,11 @@ class TrafficConfirmationController extends Controller
         'confirmed_by' => $request->user()->id,
         'bukti_konfirmasi' => $path,
         'status' => 'proses', // ✅ Ubah status menjadi 'completed'
+        'deskripsi' => 'deskripsi'
     ]);
 
     return response()->json([
-        'message' => 'Laporan berhasil dikonfirmasi dan ditandai sebagai selesai.',
+        'message' => 'Laporan berhasil dikonfirmasi dan ditandai sebagai proses.',
         'data' => $trafficReport,
     ]);
 }

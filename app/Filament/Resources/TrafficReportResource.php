@@ -117,6 +117,8 @@ class TrafficReportResource extends Resource
                         default => $state,
                     };
                 }),
+                Tables\Columns\TextColumn::make('deskripsi konfirmasi'),
+
             Tables\Columns\TextColumn::make('createdBy.name') // ← tambahkan ini
                 ->label('Dibuat Oleh')
                 ->sortable(),

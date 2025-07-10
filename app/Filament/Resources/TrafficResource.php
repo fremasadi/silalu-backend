@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
 use App\Models\Kecamatan;
+use App\Models\Apill; // pastikan ini di atas
 
 class TrafficResource extends Resource
 {
@@ -59,15 +60,14 @@ class TrafficResource extends Resource
                                     ->toArray();
                             })
                             ->searchable(),
-                        Select::make('jenis_apill')
+                            Select::make('jenis_apill')
                             ->label('Jenis APILL')
-                            ->options([
-                                '3 lampu' => '3 lampu',
-                                '2 lampu' => '2 lampu',
-                                '1 lampu' => '1 lampu',
-                            ])
+                            ->options(function () {
+                                return Apill::pluck('name', 'name'); // ambil dari tabel apill, tanpa relasi
+                            })
                             ->required()
                             ->native(false)
+                            ->searchable()
                             ->placeholder('Pilih jenis APILL'),
                         Forms\Components\Grid::make(2)
                             ->schema([

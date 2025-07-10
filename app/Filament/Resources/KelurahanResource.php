@@ -41,7 +41,7 @@ class KelurahanResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('kecamatan.nama')
+                Tables\Columns\TextColumn::make('kecamatan.name')
                     ->label('Kecamatan')
                     ->sortable()
                     ->searchable(),

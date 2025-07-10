@@ -23,6 +23,7 @@ class Traffic extends Model
         'latitude',
         'kecamatan_id',
         'jenis_apill',
+        'kelurahan_id', // ✅ pastikan ini ada
 
     ];
 

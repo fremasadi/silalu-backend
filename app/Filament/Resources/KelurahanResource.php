@@ -28,10 +28,11 @@ class KelurahanResource extends Resource
                     ->required()
                     ->maxLength(255),
                     Forms\Components\Select::make('kecamatan_id')
-                    ->label('Kecamatan')
-                    ->relationship('kecamatans', 'nama') // relasi otomatis
-                    ->searchable()
-                    ->required(),
+    ->label('Kecamatan')
+    ->relationship('kecamatan', 'nama') // 👈 nama relasi sesuai model
+    ->searchable()
+    ->required(),
+
             ]);
     }
 

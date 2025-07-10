@@ -15,4 +15,5 @@ class Kelurahan extends Model
     {
         return $this->belongsTo(Kecamatan::class);
     }
+    
 }

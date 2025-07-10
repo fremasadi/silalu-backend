@@ -23,7 +23,10 @@ class ApillResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->label('Nama APILL')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -31,7 +34,13 @@ class ApillResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Nama APILL')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime('d M Y - H:i'),
             ])
             ->filters([
                 //

@@ -29,6 +29,7 @@ class TrafficReportController extends Controller
             'id' => $report->id,
             'traffic_id' => $report->traffic_id,
             'masalah' => $report->masalah,
+            'deskripsi' => $report->deskripsi,
             'foto' => $report->foto,
             'status' => $report->status,
             'created_at' => $report->created_at,

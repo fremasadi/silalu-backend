@@ -14,11 +14,7 @@ class TrafficReportController extends Controller
     $user = auth()->user();
 
     // Ambil query awal
-    $query = TrafficReport::with([
-        'traffic.kecamatan', // include kecamatan
-        'confirmedUser',
-        'createdBy'
-    ])->latest();
+    $query = TrafficReport::with(['traffic', 'confirmedUser', 'createdBy'])->latest();
 
     // Filter berdasarkan role
     if ($user->role === 'user') {
@@ -46,15 +42,8 @@ class TrafficReportController extends Controller
             'updated_at' => $report->updated_at,
             'confirmed_by' => $report->confirmedUser?->name,
             'bukti_konfirmasi' => $report->bukti_konfirmasi,
-            'traffic' => [
-                'id' => $report->traffic->id,
-                'name' => $report->traffic->name,
-                'longitude' => $report->traffic->longitude,
-                'latitude' => $report->traffic->latitude,
-                'jenis_apill' => $report->traffic->jenis_apill,
-                'kecamatan' => $report->traffic->kecamatan?->name,
-            ],
-            'created_by' => $report->createdBy?->name,
+            'traffic' => $report->traffic,
+            'created_by' => $report->createdBy?->name, // tampilkan nama pembuat
         ];
     });
 
@@ -62,7 +51,6 @@ class TrafficReportController extends Controller
         'data' => $reports
     ]);
 }
-
 
 
 public function store(Request $request)

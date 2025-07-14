@@ -82,27 +82,35 @@ public function store(Request $request)
     ], 201);
 }
 
-public function apillDamageStats()
-    {
-        $stats = [
-            '3_lampu' => $this->countDamagedApill('3 lampu'),
-            '2_lampu' => $this->countDamagedApill('2 lampu'),
-            '1_lampu' => $this->countDamagedApill('1 lampu'),
-        ];
+public function apillDamageStats(Request $request)
+{
+    $startDate = $request->query('start_date');
+    $endDate = $request->query('end_date');
 
-        return response()->json([
-            'message' => 'Statistik kerusakan APILL',
-            'data' => $stats,
-        ]);
-    }
+    $data = [
+        '3_lampu' => $this->countDamagedApill('3 lampu', $startDate, $endDate),
+        '2_lampu' => $this->countDamagedApill('2 lampu', $startDate, $endDate),
+        '1_lampu' => $this->countDamagedApill('1 lampu', $startDate, $endDate),
+    ];
 
-    protected function countDamagedApill(string $jenis): int
-    {
-        return TrafficReport::whereIn('status', ['pending', 'proses'])
-            ->whereHas('traffic', function ($query) use ($jenis) {
-                $query->where('jenis_apill', $jenis);
-            })
-            ->count();
-    }
+    return response()->json([
+        'message' => 'Statistik kerusakan APILL berhasil diambil.',
+        'data' => $data,
+    ]);
+}
+
+
+    protected function countDamagedApill(string $jenis, $startDate = null, $endDate = null): int
+{
+    return TrafficReport::whereIn('status', ['pending', 'proses', 'selesao'])
+        ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        })
+        ->whereHas('traffic', function ($query) use ($jenis) {
+            $query->where('jenis_apill', $jenis);
+        })
+        ->count();
+}
+
 
 }

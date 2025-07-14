@@ -26,7 +26,7 @@ class TrafficConfirmationController extends Controller
         'confirmed_by' => $request->user()->id,
         'bukti_konfirmasi' => $path,
         'deskripsi' => $request->deskripsi, // ✅ Tambahkan ini
-        'status' => 'proses', // ✅ Ubah status menjadi 'completed'
+        'status' => 'selesai', // ✅ Ubah status menjadi 'completed'
     ]);
 
     return response()->json([

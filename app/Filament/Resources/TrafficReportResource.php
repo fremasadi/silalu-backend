@@ -21,21 +21,11 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 class TrafficReportResource extends Resource
 {
-    protected static ?string $model = TrafficReport::class;
+   protected static ?string $model = TrafficReport::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check'; // Icon laporan
     protected static ?string $navigationLabel = 'Laporan Lalu Lintas';
-
-    public static function getModelLabel(): string
-    {
-        return 'Laporan Lalu Lintas';
-    }
-
-    public static function getPluralModelLabel(): string
-    {
-        return 'Daftar Laporan Lalu Lintas';
-    }
+    protected static ?string $navigationGroup = 'Manajemen Lalu Lintas';
 
     public static function form(Form $form): Form
     {

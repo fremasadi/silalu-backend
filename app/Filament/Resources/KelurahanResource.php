@@ -16,9 +16,11 @@ use App\Models\Kecamatan;
 
 class KelurahanResource extends Resource
 {
-    protected static ?string $model = Kelurahan::class;
+   protected static ?string $model = Kelurahan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin'; // Pin lokasi untuk kelurahan
+    protected static ?string $navigationGroup = 'Data Wilayah';
+    protected static ?string $navigationLabel = 'Kelurahan';
 
     public static function form(Form $form): Form
     {

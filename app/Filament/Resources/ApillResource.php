@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ApillResource extends Resource
 {
-    protected static ?string $model = Apill::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+  protected static ?string $navigationIcon = 'heroicon-o-light-bulb'; // Lampu lebih relevan
+    protected static ?string $navigationGroup = 'Data Master';
+    protected static ?string $navigationLabel = 'Jenis APILL';
 
     public static function form(Form $form): Form
     {

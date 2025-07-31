@@ -18,15 +18,13 @@ use App\Models\Apill; // pastikan ini di atas
 
 class TrafficResource extends Resource
 {
-    protected static ?string $model = Traffic::class;
+   protected static ?string $model = Traffic::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
-
+    protected static ?string $navigationIcon = 'heroicon-o-truck'; // Icon jalan/lalu lintas
     protected static ?string $navigationLabel = 'Data Lalu Lintas';
-
     protected static ?string $modelLabel = 'Lalu Lintas';
-
     protected static ?string $pluralModelLabel = 'Data Lalu Lintas';
+    protected static ?string $navigationGroup = 'Manajemen Lalu Lintas';
 
     public static function form(Form $form): Form
     {
